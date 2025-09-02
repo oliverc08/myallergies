@@ -5,14 +5,17 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function SignInPage() {
   const router = useRouter();
+  const { signIn, signInWithGoogle, resetPassword, user } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [error, setError] = useState('');
 
   const textLoop = [
     "Manage all your allergies...",
@@ -28,15 +31,53 @@ export default function SignInPage() {
     return () => clearInterval(interval);
   }, [textLoop.length]);
 
+  // Redirect if user is already logged in
+  useEffect(() => {
+    if (user) {
+      router.push('/generator');
+    }
+  }, [user, router]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      await signIn(email, password);
+      router.push('/generator');
+    } catch (error: any) {
+      setError(error.message || 'An error occurred during sign in');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    setError('');
     
-    // Redirect to dashboard or main app
-    router.push('/generator');
+    try {
+      await signInWithGoogle();
+    } catch (error: any) {
+      setError(error.message || 'An error occurred during Google sign in');
+      setIsLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setError('Please enter your email address first');
+      return;
+    }
+    
+    try {
+      await resetPassword(email);
+      setError('');
+      alert('Password reset email sent! Check your inbox.');
+    } catch (error: any) {
+      setError(error.message || 'Failed to send reset email');
+    }
   };
 
   return (
@@ -51,11 +92,21 @@ export default function SignInPage() {
             </h2>
           </div>
 
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+              {error}
+            </div>
+          )}
+
           {/* Google Sign In */}
           <motion.button
+            type="button"
+            onClick={handleGoogleSignIn}
+            disabled={isLoading}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200"
+            className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -127,9 +178,13 @@ export default function SignInPage() {
 
             <div className="flex items-center justify-end">
               <div className="text-sm">
-                <a href="#" className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  className="font-medium text-blue-600 hover:text-blue-500 transition-colors"
+                >
                   Forgot your password?
-                </a>
+                </button>
               </div>
             </div>
 

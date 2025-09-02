@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Mail, Lock, Eye, EyeOff, ArrowRight, User } from 'lucide-react';
 import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function SignUpPage() {
   const router = useRouter();
+  const { signUp, signInWithGoogle, user } = useAuth();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -18,6 +20,7 @@ export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [error, setError] = useState('');
 
   const textLoop = [
     "Create your allergy profile...",
@@ -33,24 +36,50 @@ export default function SignUpPage() {
     return () => clearInterval(interval);
   }, [textLoop.length]);
 
+  // Redirect if user is already logged in
+  useEffect(() => {
+    if (user) {
+      router.push('/generator');
+    }
+  }, [user, router]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      setError('Passwords do not match');
       return;
     }
     if (!agreedToTerms) {
-      alert('Please agree to the terms and conditions');
+      setError('Please agree to the terms and conditions');
       return;
     }
     
     setIsLoading(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      await signUp(email, password, firstName, lastName);
+      // Note: User will need to confirm email before being able to sign in
+      alert('Account created! Please check your email to confirm your account.');
+      router.push('/signin');
+    } catch (error: any) {
+      setError(error.message || 'An error occurred during sign up');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setIsLoading(true);
+    setError('');
     
-    // Redirect to dashboard or main app
-    router.push('/generator');
+    try {
+      await signInWithGoogle();
+    } catch (error: any) {
+      setError(error.message || 'An error occurred during Google sign up');
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -65,11 +94,21 @@ export default function SignUpPage() {
             </h2>
           </div>
 
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+              {error}
+            </div>
+          )}
+
           {/* Google Sign Up */}
           <motion.button
+            type="button"
+            onClick={handleGoogleSignUp}
+            disabled={isLoading}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200"
+            className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
