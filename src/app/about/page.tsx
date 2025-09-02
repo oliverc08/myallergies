@@ -1,14 +1,10 @@
-import { HeroSection } from '@/components/HeroSection';
-import { DemoSection } from '@/components/DemoSection';
 import { AboutSection } from '@/components/AboutSection';
 import { FeaturesSection } from '@/components/FeaturesSection';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
 
-export default function Home() {
+export default function About() {
   return (
-    <div className="min-h-screen">
-      <HeroSection />
-      <DemoSection />
+    <div className="min-h-screen pt-0">
       <AboutSection />
       <FeaturesSection />
       <TestimonialsSection />
