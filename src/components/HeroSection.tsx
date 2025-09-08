@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Shield, ArrowRight, Users, Globe, Heart } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 
 export function HeroSection() {
@@ -89,11 +88,11 @@ export function HeroSection() {
                 </div>
 
                 {/* Language Dropdown */}
-                <div className="sm:w-48">
+                <div className="sm:w-20">
                   <select
                     value={selectedLanguage}
                     onChange={(e) => setSelectedLanguage(e.target.value)}
-                    className="w-full px-6 py-4 text-lg bg-white/80 backdrop-blur-sm border border-border/50 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 appearance-none cursor-pointer"
+                    className="w-full px-2 py-4 text-base bg-white/80 backdrop-blur-sm border border-border/50 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 appearance-none cursor-pointer"
                   >
                     <option value="English">English</option>
                     <option value="Spanish">Spanish</option>

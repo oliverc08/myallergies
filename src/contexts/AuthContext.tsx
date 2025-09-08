@@ -1,17 +1,17 @@
 'use client'
 
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { User } from '@supabase/supabase-js'
+import { User, Session } from '@supabase/supabase-js'
 import { AuthService } from '@/lib/auth'
 
 interface AuthContextType {
   user: User | null
   loading: boolean
-  signUp: (email: string, password: string, firstName?: string, lastName?: string) => Promise<any>
-  signIn: (email: string, password: string) => Promise<any>
-  signInWithGoogle: () => Promise<any>
+  signUp: (email: string, password: string, firstName?: string, lastName?: string) => Promise<unknown>
+  signIn: (email: string, password: string) => Promise<unknown>
+  signInWithGoogle: () => Promise<unknown>
   signOut: () => Promise<void>
-  resetPassword: (email: string) => Promise<any>
+  resetPassword: (email: string) => Promise<unknown>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -32,8 +32,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Listen for auth changes
     const { data: { subscription } } = AuthService.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user ?? null)
+      async (event, session: unknown) => {
+        const typedSession = session as Session | null
+        setUser(typedSession?.user ?? null)
         setLoading(false)
       }
     )

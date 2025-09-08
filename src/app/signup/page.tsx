@@ -63,8 +63,8 @@ export default function SignUpPage() {
       // Note: User will need to confirm email before being able to sign in
       alert('Account created! Please check your email to confirm your account.');
       router.push('/signin');
-    } catch (error: any) {
-      setError(error.message || 'An error occurred during sign up');
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An error occurred during sign up');
     } finally {
       setIsLoading(false);
     }
@@ -76,8 +76,8 @@ export default function SignUpPage() {
     
     try {
       await signInWithGoogle();
-    } catch (error: any) {
-      setError(error.message || 'An error occurred during Google sign up');
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An error occurred during Google sign up');
       setIsLoading(false);
     }
   };

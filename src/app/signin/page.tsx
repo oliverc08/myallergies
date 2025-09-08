@@ -46,8 +46,8 @@ export default function SignInPage() {
     try {
       await signIn(email, password);
       router.push('/generator');
-    } catch (error: any) {
-      setError(error.message || 'An error occurred during sign in');
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An error occurred during sign in');
     } finally {
       setIsLoading(false);
     }
@@ -59,8 +59,8 @@ export default function SignInPage() {
     
     try {
       await signInWithGoogle();
-    } catch (error: any) {
-      setError(error.message || 'An error occurred during Google sign in');
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An error occurred during Google sign in');
       setIsLoading(false);
     }
   };
@@ -75,8 +75,8 @@ export default function SignInPage() {
       await resetPassword(email);
       setError('');
       alert('Password reset email sent! Check your inbox.');
-    } catch (error: any) {
-      setError(error.message || 'Failed to send reset email');
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'Failed to send reset email');
     }
   };
 

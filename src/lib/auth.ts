@@ -69,7 +69,7 @@ export class AuthService {
   }
 
   // Listen to auth changes
-  static onAuthStateChange(callback: (event: string, session: any) => void) {
+  static onAuthStateChange(callback: (event: string, session: unknown) => void) {
     return supabase.auth.onAuthStateChange(callback)
   }
 

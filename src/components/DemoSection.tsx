@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Globe, Download, AlertTriangle, CheckCircle } from 'lucide-react';
 
-interface AllergyCard {
-  allergies: string[];
-  language: string;
-  name: string;
-}
+// interface AllergyCard {
+//   allergies: string[];
+//   language: string;
+//   name: string;
+// }
 
 export function DemoSection() {
   const [allergies, setAllergies] = useState<string[]>([]);
