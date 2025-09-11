@@ -39,7 +39,7 @@ export function CardPreview({
             {String(conditionType || '').toUpperCase()}
           </div>
           <div className="text-xs sm:text-sm font-bold tracking-wider opacity-90">
-            EQUAL EATS
+            MyAllergies
           </div>
         </div>
 
