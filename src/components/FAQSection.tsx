@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Minus } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export function FAQSection() {
   const [openItems, setOpenItems] = useState<number[]>([]);
@@ -34,50 +34,67 @@ export function FAQSection() {
   };
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-4xl mx-auto">
         {/* FAQ Heading */}
-        <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-16">
+        <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-10 tracking-tight">
           FAQs
         </h2>
 
         {/* FAQ Items */}
-        <div className="space-y-0">
-          {faqs.map((faq, index) => (
-            <div key={index}>
-              <div 
-                className="flex items-center justify-between py-6 cursor-pointer hover:bg-gray-50 transition-colors duration-200"
-                onClick={() => toggleItem(index)}
-              >
-                <h3 className="text-lg font-medium text-gray-900 pr-8 flex-1">
-                  {faq.question}
-                </h3>
-                <div className="flex-shrink-0">
-                  {openItems.includes(index) ? (
-                    <Minus className="w-6 h-6 text-gray-900" />
-                  ) : (
-                    <Plus className="w-6 h-6 text-gray-900" />
-                  )}
-                </div>
-              </div>
-              
-              {/* Divider Line */}
-              {index < faqs.length - 1 && (
-                <div className="border-t border-gray-200" />
-              )}
-              
-              {/* Answer Content */}
-              {openItems.includes(index) && (
-                <div className="pb-6">
-                  <div className="pt-4">
-                    <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                      {faq.answer}
-                    </p>
+        <div className="divide-y-0">
+          {faqs.map((faq, index) => {
+            const isOpen = openItems.includes(index);
+            return (
+              <div key={index}>
+                <button
+                  type="button"
+                  className="group w-full text-left focus:outline-none"
+                  onClick={() => toggleItem(index)}
+                >
+                  <div className="flex items-center justify-between py-8 md:py-10">
+                    <h3 className="pr-8 flex-1 text-base md:text-lg font-medium text-gray-800 group-hover:text-gray-900 transition-colors duration-200">
+                      {faq.question}
+                    </h3>
+                    {/* Minimalist plus icon that animates to minus */}
+                    <div className="relative w-5 h-5 flex-shrink-0">
+                      <span className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-gray-900 rounded-full"></span>
+                      <motion.span
+                        initial={false}
+                        animate={{ scaleY: isOpen ? 0 : 1, opacity: isOpen ? 0 : 1 }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                        className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] bg-gray-900 rounded-full"
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pb-8 md:pb-10">
+                        <p className="pt-1 text-gray-700 leading-relaxed whitespace-pre-line">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Divider Line */}
+                {index < faqs.length - 1 && (
+                  <div className="border-t" style={{ borderColor: '#EAEAEA' }} />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
