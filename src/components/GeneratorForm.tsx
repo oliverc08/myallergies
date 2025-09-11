@@ -10,30 +10,53 @@ export interface GeneratorFormProps {
     foods: string[];
     caution: string;
     language: string;
-    imageDataUrl?: string | null;
+    emergencyContact?: string;
   };
   onChange: (next: Partial<GeneratorFormProps['state']>) => void;
 }
 
 export function GeneratorForm({ state, onChange }: GeneratorFormProps) {
-  const fileRef = useRef<HTMLInputElement | null>(null);
-
-  const handleFoodsChange = (val: string) => {
-    // Accept comma-separated or newline-separated
-    const list = val
-      .split(/\n|,/)
-      .map(s => s.trim())
-      .filter(Boolean);
-    onChange({ foods: list });
+  // Presets for dropdowns
+  const headlinePresets: Record<string, string[]> = {
+    Intolerance: [
+      'I am lactose intolerant.',
+      'I am gluten intolerant.',
+      'I am fructose intolerant.',
+    ],
+    Allergy: [
+      'I have a severe dairy allergy.',
+      'I have a severe peanut allergy.',
+      'I have a severe shellfish allergy.',
+    ],
   };
 
-  const handleFile = async (file: File) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      onChange({ imageDataUrl: String(reader.result) });
-    };
-    reader.readAsDataURL(file);
+  const descriptionPresets: Record<string, string[]> = {
+    Intolerance: [
+      'I cannot consume food or drinks that contain this ingredient, or I will become very ill. It can be found in:',
+      'Please avoid serving me products containing this ingredient. It is commonly present in:',
+    ],
+    Allergy: [
+      'I must strictly avoid this allergen. Even small amounts can cause a severe reaction. It can be found in:',
+      'Please make sure my meal does not contain this allergen or traces of it. It is commonly present in:',
+    ],
   };
+
+  const foodsPresets: Record<string, { label: string; items: string[] }[]> = {
+    Intolerance: [
+      { label: 'Lactose sources', items: ['Milk', 'Cheese', 'Cream', 'Yogurt', 'Butter', 'Whey', 'Ice cream', 'Baked goods'] },
+      { label: 'Gluten sources', items: ['Wheat', 'Barley', 'Rye', 'Bread', 'Pasta', 'Cereal', 'Baked goods', 'Beer'] },
+    ],
+    Allergy: [
+      { label: 'Peanut sources', items: ['Peanuts', 'Peanut butter', 'Peanut oil', 'Sauces', 'Confections', 'Trail mix', 'Snack bars', 'Baked goods'] },
+      { label: 'Shellfish sources', items: ['Shrimp', 'Crab', 'Lobster', 'Clams', 'Oysters', 'Scallops', 'Fish sauce', 'Mixed dishes'] },
+    ],
+  };
+
+  const cautionPresets: string[] = [
+    'Please be aware of these products when preparing my meal. Thank you!',
+    'Please use separate utensils and surfaces to avoid cross-contact.',
+    'Please confirm with the chef before serving. Thank you!',
+  ];
 
   return (
     <div className="space-y-6">
@@ -51,46 +74,57 @@ export function GeneratorForm({ state, onChange }: GeneratorFormProps) {
 
       <div>
         <label className="block text-sm font-medium text-foreground mb-2">Main Headline</label>
-        <input
-          type="text"
+        <select
           value={state.headline}
           onChange={(e) => onChange({ headline: e.target.value })}
           className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-          placeholder="I am lactose intolerant."
-        />
+        >
+          {headlinePresets[state.conditionType]?.map((h) => (
+            <option key={h} value={h}>{h}</option>
+          ))}
+        </select>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-foreground mb-2">Description</label>
-        <textarea
-          rows={4}
+        <select
           value={state.description}
           onChange={(e) => onChange({ description: e.target.value })}
           className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-          placeholder="I cannot consume food or drinks that contain lactose or dairy products, or I will become very ill."
-        />
+        >
+          {descriptionPresets[state.conditionType]?.map((d) => (
+            <option key={d} value={d}>{d}</option>
+          ))}
+        </select>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-foreground mb-2">Restricted Foods (comma or new line)</label>
-        <textarea
-          rows={4}
-          defaultValue={state.foods.join('\n')}
-          onChange={(e) => handleFoodsChange(e.target.value)}
+        <label className="block text-sm font-medium text-foreground mb-2">Restricted Foods</label>
+        <select
+          value={foodsPresets[state.conditionType]?.[0]?.label}
+          onChange={(e) => {
+            const opt = foodsPresets[state.conditionType]?.find(o => o.label === e.target.value);
+            if (opt) onChange({ foods: opt.items });
+          }}
           className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-          placeholder={"Milk\nCheese\nCream\nYogurt"}
-        />
+        >
+          {foodsPresets[state.conditionType]?.map((set) => (
+            <option key={set.label} value={set.label}>{set.label}</option>
+          ))}
+        </select>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-foreground mb-2">Custom Caution Message</label>
-        <input
-          type="text"
+        <label className="block text-sm font-medium text-foreground mb-2">Caution Message</label>
+        <select
           value={state.caution}
           onChange={(e) => onChange({ caution: e.target.value })}
           className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-          placeholder="Please be aware when preparing my meal. Thank you!"
-        />
+        >
+          {cautionPresets.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
       </div>
 
       <div>
@@ -110,35 +144,14 @@ export function GeneratorForm({ state, onChange }: GeneratorFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-foreground mb-2">Optional Image Upload</label>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            className="px-4 py-2 rounded-lg border border-border bg-background hover:bg-muted transition"
-            onClick={() => fileRef.current?.click()}
-          >
-            Choose Image
-          </button>
-          <input
-            ref={fileRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => {
-              const f = e.target.files?.[0];
-              if (f) handleFile(f);
-            }}
-          />
-          {state.imageDataUrl && (
-            <button
-              type="button"
-              className="text-sm text-red-600 hover:underline"
-              onClick={() => onChange({ imageDataUrl: null })}
-            >
-              Remove
-            </button>
-          )}
-        </div>
+        <label className="block text-sm font-medium text-foreground mb-2">Emergency Contact</label>
+        <input
+          type="text"
+          value={state.emergencyContact || ''}
+          onChange={(e) => onChange({ emergencyContact: e.target.value })}
+          className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+          placeholder="Name and phone (e.g., Jane Doe — +1 555-123-4567)"
+        />
       </div>
     </div>
   );

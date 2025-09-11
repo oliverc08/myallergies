@@ -14,7 +14,7 @@ export default function GeneratorPage() {
     foods: ['Milk', 'Cheese', 'Cream', 'Yogurt', 'Butter', 'Whey', 'Ice cream', 'Baked goods'],
     caution: 'Please be aware of these products when preparing my meal. Thank you!',
     language: 'en',
-    imageDataUrl: null as string | null,
+    emergencyContact: '',
   });
 
   const update = (next: Partial<typeof state>) => setState((s) => ({ ...s, ...next }));

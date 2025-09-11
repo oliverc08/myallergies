@@ -10,7 +10,7 @@ export interface CardPreviewProps {
   foods: string[];
   caution: string;
   language: string; // locale code like 'en', 'es'
-  imageDataUrl?: string | null;
+  emergencyContact?: string;
 }
 
 export function CardPreview({
@@ -20,7 +20,7 @@ export function CardPreview({
   foods,
   caution,
   language,
-  imageDataUrl,
+  emergencyContact,
 }: CardPreviewProps) {
   const twoColumnFoods = () => {
     const mid = Math.ceil(foods.length / 2);
@@ -84,12 +84,7 @@ export function CardPreview({
           {/* Right icon area */}
           <div className="col-span-12 md:col-span-4 flex items-center justify-center">
             <div className="relative w-40 h-40 rounded-full border-4 border-[#E60000]/80 flex items-center justify-center overflow-hidden">
-              {imageDataUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={imageDataUrl} alt="allergen" className="object-cover w-full h-full" />
-              ) : (
-                <div className="absolute inset-0 bg-[url('/window.svg')] bg-center bg-contain bg-no-repeat opacity-70" />
-              )}
+              <div className="absolute inset-0 bg-[url('/window.svg')] bg-center bg-contain bg-no-repeat opacity-70" />
               <div className="absolute inset-0">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   <circle cx="50" cy="50" r="46" stroke="#E60000" strokeWidth="6" fill="none" />
@@ -103,7 +98,9 @@ export function CardPreview({
         {/* Bottom bar */}
         <div className="flex items-center justify-between bg-black text-white px-4 py-2 text-xs">
           <span>{translateLabel('languageName', language)}</span>
-          <span className="opacity-80">© MyAllergies · {new Date().getFullYear()}</span>
+          <span className="opacity-80 truncate max-w-[60%]">
+            {emergencyContact ? `Emergency: ${emergencyContact}` : `© MyAllergies · ${new Date().getFullYear()}`}
+          </span>
         </div>
       </div>
     </div>
