@@ -21,7 +21,7 @@ export function AppPreviewSection() {
                 Simple. Easy. Awesome.
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
-                MyAllergies allergy cards can easily be stored on your phone, in your wallet, or printed out and carried with you. Now, you don't have to worry about forgetting or losing your card.
+                MyAllergies allergy cards can easily be stored on your phone, in your wallet, or printed out and carried with you. Now, you don&apos;t have to worry about forgetting or losing your card.
               </p>
             </div>
             

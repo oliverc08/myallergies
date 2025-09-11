@@ -9,7 +9,7 @@ export function FAQSection() {
   const faqs = [
     {
       question: "Do you plan to continue to offer your services for free?",
-      answer: "Currently, MyAllergies is still in a beta form. As I continue to refine and improve the website, I will keep the offered services free. However, this project isn't cheating, and at some point there will need to be a form of paid-subscription.\n\nI will always hold true to offering affordable services, I promise :)"
+      answer: "Currently, MyAllergies is still in a beta form. As I continue to refine and improve the website, I will keep the offered services free. However, this project isn&apos;t cheating, and at some point there will need to be a form of paid-subscription.\n\nI will always hold true to offering affordable services, I promise :)"
     },
     {
       question: "When you do start charging, are you profiting from this project?",
@@ -17,11 +17,11 @@ export function FAQSection() {
     },
     {
       question: "I want to help you build the community, how can I get involved?",
-      answer: "If you're interested in getting involved in this project, please send me an email! Any help is greatly appreciated."
+      answer: "If you&apos;re interested in getting involved in this project, please send me an email! Any help is greatly appreciated."
     },
     {
       question: "I need help creating an allergy card/allergen guide!",
-      answer: "No problem! I have set up a complete support page with articles providing step by step instructions for using my services. If you still need help, please don't hesitate to reach out!"
+      answer: "No problem! I have set up a complete support page with articles providing step by step instructions for using my services. If you still need help, please don&apos;t hesitate to reach out!"
     }
   ];
 

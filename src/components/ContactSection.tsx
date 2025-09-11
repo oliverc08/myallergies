@@ -135,7 +135,7 @@ export function ContactSection() {
                 required
                 rows={6}
                 className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all resize-none"
-                placeholder="Tell us what's on your mind..."
+                placeholder="Tell us what&apos;s on your mind..."
               />
             </div>
 

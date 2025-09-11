@@ -15,7 +15,7 @@ export function AnimatedTestimonialsSection() {
     {
       name: "Dr. Michael Rodriguez",
       handle: "@dr_mrodriguez",
-      text: "As a physician, I recommend MyAllergies to all my patients. It's a game-changer for allergy management.",
+      text: "As a physician, I recommend MyAllergies to all my patients. It&apos;s a game-changer for allergy management.",
       avatar: "MR",
       platform: "twitter"
     },
@@ -50,7 +50,7 @@ export function AnimatedTestimonialsSection() {
     {
       name: "Maria Garcia",
       handle: "@mariagarcia",
-      text: "MyAllergies has made my life so much easier. I can't imagine going back to paper cards.",
+      text: "MyAllergies has made my life so much easier. I can&apos;t imagine going back to paper cards.",
       avatar: "MG",
       platform: "twitter"
     },
