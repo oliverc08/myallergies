@@ -34,3 +34,11 @@ export interface AllergyProfile {
   created_at: string
   updated_at: string
 }
+
+export interface NewsletterSubscription {
+  id: string
+  email: string
+  subscribed_at: string
+  is_active: boolean
+  source: string
+}

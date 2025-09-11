@@ -63,7 +63,7 @@ export function Navigation() {
                 
                 {/* CTA Button - Enhanced */}
                 <Link
-                  href="/generator"
+                  href="/signin"
                   className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 shadow-lg hover:shadow-xl"
                 >
                   Create Your Card
@@ -111,7 +111,7 @@ export function Navigation() {
                         Sign In
                       </Link>
                       <Link
-                        href="/generator"
+                        href="/signin"
                         className="block w-full text-center rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 shadow-lg"
                         onClick={() => setIsOpen(false)}
                       >

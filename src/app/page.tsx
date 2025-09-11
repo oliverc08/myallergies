@@ -5,6 +5,7 @@ import { AppPreviewSectionReversed } from '@/components/AppPreviewSectionReverse
 import { AboutSection } from '@/components/AboutSection';
 import { FeaturesSection } from '@/components/FeaturesSection';
 import { AnimatedTestimonialsSection } from '@/components/AnimatedTestimonialsSection';
+import { NewsletterStrip } from '@/components/NewsletterStrip';
 import { PricingSection } from '@/components/PricingSection';
 import { FAQSection } from '@/components/FAQSection';
 
@@ -12,12 +13,13 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      <DemoSection />
+      {/* <DemoSection /> */}
       <AppPreviewSection />
       <AppPreviewSectionReversed />
       <AboutSection />
       <FeaturesSection />
       <AnimatedTestimonialsSection />
+      <NewsletterStrip />
       <PricingSection />
       <FAQSection />
     </div>

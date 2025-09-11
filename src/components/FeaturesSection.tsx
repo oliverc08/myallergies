@@ -63,7 +63,7 @@ export function FeaturesSection() {
             Everything You Need for Safe Dining
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Our comprehensive allergy card generator provides all the tools you need to dine safely, anywhere in the world.
+            Our allergy card generator provides everything you need to dine safely, anywhere in the world.
           </p>
         </motion.div>
 
@@ -94,8 +94,8 @@ export function FeaturesSection() {
           ))}
         </div>
 
-        {/* Coming Soon Section */}
-        <motion.div
+        {/* Coming Soon Section - Temporarily Hidden */}
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -128,7 +128,7 @@ export function FeaturesSection() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

@@ -18,10 +18,10 @@ export function AppPreviewSection() {
           >
             <div className="space-y-4">
               <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                Create at the speed of thought
+                Simple. Easy. Awesome.
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
-                Tell MyAllergies your idea, and watch it transform into a working app—complete with all the necessary components, pages, flows and features.
+                MyAllergies allergy cards can easily be stored on your phone, in your wallet, or printed out and carried with you. Now, you don't have to worry about forgetting or losing your card.
               </p>
             </div>
             
@@ -30,7 +30,7 @@ export function AppPreviewSection() {
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center px-8 py-4 bg-black text-white text-base font-medium rounded-full hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              Start building
+              Generate yours
             </motion.button>
           </motion.div>
 

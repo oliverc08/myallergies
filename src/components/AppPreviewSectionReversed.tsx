@@ -111,10 +111,10 @@ export function AppPreviewSectionReversed() {
           >
             <div className="space-y-4">
               <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                Build with confidence
+                Eat with <em>confidence</em>
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
-                Every feature you need is already built and ready to use. Focus on what matters most—creating amazing experiences for your users.
+                With MyAllergies allergy cards, you can clearly and confidently communicate your dietary needs to restaurants. The constant worry about cross-contamination, language barriers, and the fear of having an allergic reaction ends here.
               </p>
             </div>
             
@@ -123,7 +123,7 @@ export function AppPreviewSectionReversed() {
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center px-8 py-4 bg-black text-white text-base font-medium rounded-full hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              Explore features
+              Learn more
             </motion.button>
           </motion.div>
         </div>

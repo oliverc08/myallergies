@@ -16,7 +16,7 @@ export function AboutSection() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6">
-              Oliver&apos;s Story
+              Why <em>MyAllergies</em>?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Born from personal experience and a desire to help others navigate food allergies safely.
@@ -33,13 +33,13 @@ export function AboutSection() {
             >
               <div className="space-y-4">
                 <p className="text-muted-foreground leading-relaxed">
-                  As someone who has navigated food allergies throughout my life, I understand the challenges of dining out safely, especially when traveling or in unfamiliar environments. The constant worry about cross-contamination, language barriers, and the fear of having an allergic reaction can make every meal a source of anxiety.
+                  As someone who has navigated food allergies throughout my life, I understand the challenges of dining out safely, especially when traveling or in unfamiliar environments. The constant worry about cross-contamination, language barriers, and the fear of having an allergic reaction can really take the relxation out of dining.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  MyAllergies was created to solve this problem. By providing clear, translated allergy cards that you can easily share with restaurant staff, we&apos;re making dining safer and more accessible for everyone with food allergies.
+                  MyAllergies was created to solve this problem. By providing clear, free, and highly customizable translated allergy cards that you can easily share with restaurant staff, we&apos;re making dining safer and more accessible for everyone with food allergies.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Our mission is simple: to give you the confidence to dine anywhere in the world, knowing that your dietary needs will be clearly communicated and understood.
+                  My mission is simple: to give you the confidence to dine anywhere in the world, knowing that your dietary needs will be clearly communicated and understood. Nobody should have to eat their meals in fear.
                 </p>
               </div>
 

@@ -90,7 +90,7 @@ export function AnimatedTestimonialsSection() {
             whileTap={{ scale: 0.98 }}
             className="inline-flex items-center px-8 py-4 bg-black text-white text-base font-medium rounded-full hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
-            Start building
+            Create Your Allergy Card
           </motion.button>
         </motion.div>
 
